@@ -35,8 +35,8 @@ flowdock = require 'flowdock'
     files = fs.readdirSync('commands')
     for i in [0...files.length]
         file = files[i]
-        if (file.match(/\.js$/))
-            command = file.replace(/\.js$/, "")
+        if (file.match(/\.coffee$/))
+            command = file.replace(/\.coffee$/, "")
             availableCommands[command] = require(command)
 
     session = new flowdock.Session(config.username, config.password)
