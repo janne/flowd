@@ -1,8 +1,5 @@
 require.paths.unshift 'commands'
-require.paths.unshift('.')
-querystring = require 'querystring'
 fs = require 'fs'
-exec = require('child_process').exec
 flowdock = require 'flowdock'
 
 class Session
