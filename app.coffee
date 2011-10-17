@@ -1,6 +1,6 @@
 require.paths.unshift 'commands'
 fs = require 'fs'
-require './flowd'
+Flowd = require('./flowd').Flowd
 
 config = {}
 try

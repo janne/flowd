@@ -1,7 +1,7 @@
 flowdock = require('flowdock')
 fs = require 'fs'
 
-class global.Flowd
+class exports.Flowd
     constructor: (@config) ->
         @session = new flowdock.Session(@config.username, @config.password)
         @session.subscribe @config.messageHost.split(".")[0], @config.flowname
