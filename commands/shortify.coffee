@@ -1,4 +1,4 @@
-http = require('http')
+http = require 'http'
 exports.help = "Shortify provided <url>"
 exports.execute = (url, callback) ->
     if url?
