@@ -24,25 +24,18 @@ class Session
 
     parseMessages: (json, callback) ->
         for message in json
-            if message.event != 'message'
-                return
+            return if message.event != 'message'
 
             match = message.content.match(/^Flowd,?\s(\w*)\s?(.*)/i)
 
             if match && match.length > 1
                 if match[1] == 'help'
                     msg = "    Commands:\n"
-                    for own name, cmd of @availableCommands
-                        if(cmd.help)
-                            msg += "    #{name} - #{cmd.help}\n"
-                        else
-                            msg += "    #{name}\n"
+                    msg += "    #{name} - #{cmd.help}\n" for own name, cmd of @availableCommands
                     @postMessage(msg)
 
                 else if @availableCommands[match[1]]
-                    args = ""
-                    if (match.length > 2)
-                        args = match[2]
+                    args = if (match.length > 2) then match[2] else ""
                     @availableCommands[match[1]].execute args, (message) => @postMessage message
                     continue
 
@@ -51,8 +44,7 @@ class Session
 
 config = {}
 try
-    if (fs.lstatSync 'config.coffee')
-        config = require('./config').config
+    config = require('./config').config if (fs.lstatSync 'config.coffee')
 config.username = process.env.FLOWD_USERNAME || config.username
 config.password = process.env.FLOWD_PASSWORD || config.password
 config.flowname = process.env.FLOWD_FLOWNAME || config.flowname
