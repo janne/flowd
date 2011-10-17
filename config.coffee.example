@@ -1,8 +1,6 @@
 exports.config = {
-  updateInterval: 3000,
   username: "bot@example.com",
   password: "secret",
   flowname: "<nameOfTheFlow>",
-  syntaxErrorMessage: "Huh?",
   messageHost: '<yourdomain>.flowdock.com'
 };

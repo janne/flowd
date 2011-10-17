@@ -12,24 +12,10 @@ flowdock = require 'flowdock'
     try
         if (fs.lstatSync 'config.coffee')
             config = require('./config').config
-
     config.username = process.env.FLOWD_USERNAME || config.username
     config.password = process.env.FLOWD_PASSWORD || config.password
-    config.flowname = process.env.FLOWD_FLOWNAME || config.flowname || 'flowd'
+    config.flowname = process.env.FLOWD_FLOWNAME || config.flowname
     config.messageHost = process.env.FLOWD_MESSAGE_HOST || config.messageHost
-    config.updateInterval = config.updateInterval || 3000
-    config.syntaxErrorMessage = config.syntaxErrorMessage || 'Huh?'
-
-    sessionOptions =
-        host: 'www.flowdock.com',
-        port: 443,
-        path: '/session',
-        method: 'POST',
-        headers:
-            Connection: "keep-alive"
-
-    updateInterval = config.updateInterval
-    last_sent_at = new Date().getTime()
 
     availableCommands = {}
     files = fs.readdirSync('commands')
@@ -50,9 +36,6 @@ flowdock = require 'flowdock'
     parseMessages = (json, callback) ->
         for i in [0...json.length]
             message = json[i]
-
-            if message.sent > last_sent_at
-                last_sent_at = message.sent
 
             if message.event != 'message'
                 return
@@ -77,5 +60,5 @@ flowdock = require 'flowdock'
                     continue
 
                 else
-                    postMessage config.syntaxErrorMessage
+                    postMessage "Huh?"
 )()
