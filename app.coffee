@@ -14,9 +14,7 @@ class Session
 
     readCommands: ->
         commands = {}
-        files = fs.readdirSync('commands')
-        for i in [0...files.length]
-            file = files[i]
+        for file in fs.readdirSync('commands')
             if (file.match(/\.coffee$/))
                 command = file.replace(/\.coffee$/, "")
                 commands[command] = require(command)
@@ -25,9 +23,7 @@ class Session
     postMessage: (message) -> @session.chatMessage @config.messageHost.split(".")[0], @config.flowname, message
 
     parseMessages: (json, callback) ->
-        for i in [0...json.length]
-            message = json[i]
-
+        for message in json
             if message.event != 'message'
                 return
 
@@ -47,8 +43,7 @@ class Session
                     args = ""
                     if (match.length > 2)
                         args = match[2]
-                    @availableCommands[match[1]].execute args, (message) =>
-                        @postMessage message
+                    @availableCommands[match[1]].execute args, (message) => @postMessage message
                     continue
 
                 else
