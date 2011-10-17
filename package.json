@@ -1,9 +1,9 @@
 {
-  "name": "flowd",
-  "version": "0.2.0",
-  "dependencies": {
-    "flowdock": "0.1.0",
-    "coffee-script": "1.1.2",
-    "jsdom": "0.2.8",
-  }
+    "name": "flowd",
+    "version": "0.2.0",
+    "dependencies": {
+        "flowdock": "0.1.0",
+        "coffee-script": "1.1.2",
+        "jsdom": "0.2.8"
+    }
 }
