@@ -22,16 +22,15 @@ class Session
     parseMessages: (json, callback) ->
         for message in json
             return if message.event != 'message'
-            match = message.content.match(/^bot,?\s(\w*)\s?(.*)/i)
-            if match && match.length > 1
-                if match[1] == 'help'
+            if match = message.content.match /(!|bot[, ])\s*(\w*)\s?(.*)/i
+                [command, args] = match[2..3]
+                if command == 'help'
                     msg = "    Commands:\n"
                     msg += "    #{name} - #{cmd.help}\n" for own name, cmd of @availableCommands
                     @postMessage(msg)
 
-                else if @availableCommands[match[1]]
-                    args = if (match.length > 2) then match[2] else ""
-                    @availableCommands[match[1]].execute args, (message) => @postMessage message
+                else if @availableCommands[command]
+                    @availableCommands[command].execute args, (message) => @postMessage message
                     continue
 
                 else
