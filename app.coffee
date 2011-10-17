@@ -10,7 +10,7 @@ flowdock = require 'flowdock'
     config = {}
 
     try
-        if (fs.lstatSync 'config.js')
+        if (fs.lstatSync 'config.coffee')
             config = require('./config').config
 
     config.username = process.env.FLOWD_USERNAME || config.username
