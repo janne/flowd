@@ -33,9 +33,6 @@ class Session
                     @availableCommands[command].execute args, (message) => @postMessage message
                     continue
 
-                else
-                    @postMessage "Huh?"
-
 config = {}
 try
     config = require('./config').config if (fs.lstatSync 'config.coffee')
