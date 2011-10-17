@@ -22,9 +22,7 @@ class Session
     parseMessages: (json, callback) ->
         for message in json
             return if message.event != 'message'
-
-            match = message.content.match(/^Flowd,?\s(\w*)\s?(.*)/i)
-
+            match = message.content.match(/^bot,?\s(\w*)\s?(.*)/i)
             if match && match.length > 1
                 if match[1] == 'help'
                     msg = "    Commands:\n"
