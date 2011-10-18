@@ -10,8 +10,13 @@ config =
 describe "Flowd", ->
     beforeEach ->
         spyOn(Session.prototype, 'login')
+        this.addMatchers toInclude: (expected) -> this.actual.indexOf(expected) >= 0
 
     it 'should be able to create an instance', ->
         flowd = new Flowd config, Session
         expect(typeof flowd).toEqual('object')
         expect(Session.prototype.login).toHaveBeenCalled()
+
+    it 'should have some commands', ->
+        flowd = new Flowd config, Session
+        expect(key for own key of flowd.commands).toInclude 'ping'
