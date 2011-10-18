@@ -1,4 +1,3 @@
-require.paths.unshift 'commands'
 fs = require 'fs'
 Flowd = require('./flowd').Flowd
 

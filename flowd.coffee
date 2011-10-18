@@ -1,3 +1,4 @@
+require.paths.unshift 'commands'
 flowdock = require('flowdock')
 fs = require 'fs'
 
