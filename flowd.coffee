@@ -1,10 +1,10 @@
 require.paths.unshift 'commands'
-flowdock = require('flowdock')
+Session = require('flowdock').Session
 fs = require 'fs'
 
 class exports.Flowd
-    constructor: (@config) ->
-        @session = new flowdock.Session(@config.username, @config.password)
+    constructor: (@config, SessionClass = Session) ->
+        @session = new SessionClass(@config.username, @config.password)
         @session.subscribe @config.messageHost.split(".")[0], @config.flowname
         @session.on "message", (message) => @parseMessages([message])
         @availableCommands = @readCommands()
