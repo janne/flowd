@@ -7,15 +7,13 @@ class exports.Flowd
         @session = new SessionClass(@config.username, @config.password)
         @session.subscribe @config.messageHost.split(".")[0], @config.flowname
         @session.on "message", (message) => @parseMessages([message])
-        @availableCommands = @readCommands()
-
-    readCommands: ->
-        commands = {}
+        @commands = {}
         for file in fs.readdirSync('commands')
             if (file.match(/\.coffee$/))
                 command = file.replace(/\.coffee$/, "")
-                commands[command] = require(command)
-        commands
+                @commands[command] = require(command)
+
+    commands: -> @commands
 
     postMessage: (message) -> @session.chatMessage @config.messageHost.split(".")[0], @config.flowname, message
 
@@ -26,9 +24,9 @@ class exports.Flowd
                 [command, args] = match[2..3]
                 if command == 'help'
                     msg = "    Commands:\n"
-                    msg += "    #{name} - #{cmd.help}\n" for own name, cmd of @availableCommands
+                    msg += "    #{name} - #{cmd.help}\n" for own name, cmd of @commands
                     @postMessage(msg)
 
-                else if @availableCommands[command]
-                    @availableCommands[command].execute args, (message) => @postMessage message
+                else if @commands[command]
+                    @commands[command].execute args, (message) => @postMessage message
                     continue
