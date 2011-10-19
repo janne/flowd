@@ -13,8 +13,6 @@ class exports.Flowd
                 command = file.replace(/\.coffee$/, "")
                 @commands[command] = require(command)
 
-    commands: -> @commands
-
     postMessage: (message) -> @session.chatMessage @config.messageHost.split(".")[0], @config.flowname, message
 
     parseMessages: (json, callback) ->
